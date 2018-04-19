@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd /build/
+pushd /build/
 echo "Downloading OpenWRT sources..."
 git clone -b openwrt_17.10_release https://github.com/MarvellEmbeddedProcessors/openwrt-kernel.git
 git clone -b openwrt_17.10_release https://github.com/MarvellEmbeddedProcessors/openwrt-dd.git
@@ -27,3 +27,4 @@ cp bin/mvebu64/armada-3720-community.dtb /data/openwrt/
 cp bin/mvebu64/openwrt-armada-ESPRESSObin-Image /data/openwrt/
 cp bin/mvebu64/openwrt-mvebu64-armada-espressobin-rootfs.tar.gz /data/openwrt/
 echo "Done building OpenWRT."
+popd

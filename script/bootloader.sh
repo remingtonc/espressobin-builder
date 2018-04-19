@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd /build/
+pushd /build/
 echo "Downloading u-boot..."
 mkdir u-boot
 cd u-boot
@@ -20,8 +20,8 @@ cd ..
 mkdir a3700-utils
 cd a3700-utils
 git clone -b A3700_utils-armada-17.10 https://github.com/MarvellEmbeddedProcessors/A3700-utils-marvell.git .
-wget http://wiki.espressobin.net/tiki-download_file.php?fileId=152
-wget http://wiki.espressobin.net/tiki-download_file.php?fileId=151
+wget --content-disposition http://wiki.espressobin.net/tiki-download_file.php?fileId=152
+wget --content-disposition http://wiki.espressobin.net/tiki-download_file.php?fileId=151
 cd ..
 cd atf
 echo "Building atf..."
@@ -30,3 +30,4 @@ mkdir -p /data/atf
 cp uild/a3700/debug/flash-image.bin /data/atf/
 cp -r build/a3700/debug/uart-images /data/atf/
 echo "Done building atf."
+popd
