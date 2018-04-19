@@ -2,7 +2,9 @@
 pushd /build/
 echo "Downloading OpenWRT sources..."
 git clone -b openwrt_17.10_release https://github.com/MarvellEmbeddedProcessors/openwrt-kernel.git
+sync
 git clone -b openwrt_17.10_release https://github.com/MarvellEmbeddedProcessors/openwrt-dd.git
+sync
 cd openwrt-dd
 ./scripts/feeds update -a
 ./scripts/feeds install -a
@@ -21,7 +23,9 @@ make menuconfig
 # [x] Advanced configuration options (for developers)  --->
 #    (/opt/kernel/openwrt-kernel) Use external kernel tree
 echo "Building OpenWRT..."
+sync
 make -j$(($(nproc)+1))
+sync
 mkdir -p /data/openwrt/
 cp bin/mvebu64/armada-3720-community.dtb /data/openwrt/
 cp bin/mvebu64/openwrt-armada-ESPRESSObin-Image /data/openwrt/
