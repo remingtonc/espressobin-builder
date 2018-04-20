@@ -1,34 +1,43 @@
 #!/usr/bin/env bash
-echo "Downloading OpenWRT sources..."
+echo "Acquiring OpenWRT..."
 pushd /build/
 mkdir -p /build/cache/
 OPENWRT_KERNEL_FILENAME=openwrt_17.10_release-kernel.zip
 FQ_OPENWRT_KERNEL_FILENAME=$CACHE_DIR$OPENWRT_KERNEL_FILENAME
 if [ -f "${FQ_OPENWRT_KERNEL_FILENAME}" ]; then
+    echo "Using cached OpenWRT kernel..."
     cp $FQ_OPENWRT_KERNEL_FILENAME $OPENWRT_KERNEL_FILENAME
 else
+    echo "OpenWRT kernel is not cached, downloading..."
     wget https://github.com/MarvellEmbeddedProcessors/openwrt-kernel/archive/openwrt_17.10_release.zip
     mv openwrt_17.10_release.zip $OPENWRT_KERNEL_FILENAME
+    echo "Copying OpenWRT kernel to cache..."
     cp $OPENWRT_KERNEL_FILENAME $FQ_OPENWRT_KERNEL_FILENAME
 fi
 mkdir openwrt-kernel
+echo "Extracting OpenWRT kernel..."
 unzip $OPENWRT_KERNEL_FILENAME -d openwrt-kernel
 rm $OPENWRT_KERNEL_FILENAME
 sync
 OPENWRT_DD_FILENAME=openwrt_17.10_release-dd.zip
 FQ_OPENWRT_DD_FILENAME=$CACHE_DIR$OPENWRT_DD_FILENAME
 if [ -f "${FQ_OPENWRT_DD_FILENAME}" ]; then
+    echo "Using cached OpenWRT DD."
     cp $FQ_OPENWRT_DD_FILENAME $OPENWRT_DD_FILENAME
 else
+    echo "OpenWRT DD is not cached, downloading..."
     wget https://github.com/MarvellEmbeddedProcessors/openwrt-dd/archive/openwrt_17.10_release.zip
     mv openwrt_17.10_release.zip $OPENWRT_DD_FILENAME
+    echo "Copying OpenWRT DD to cache..."
     cp $OPENWRT_DD_FILENAME $FQ_OPENWRT_DD_FILENAME
 fi
 mkdir openwrt-dd
+echo "Extracting OpenWRT DD..."
 unzip $OPENWRT_DD_FILENAME -d openwrt-dd
 rm $OPENWRT_DD_FILENAME
 sync
 cd openwrt-dd
+echo "Running OpenWRT DD scripts..."
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 echo "LOOK AT SOURCE!!!"
@@ -49,9 +58,10 @@ echo "Building OpenWRT..."
 sync
 make -j$(($(nproc)+1))
 sync
+echo "Exposing desired files..."
 mkdir -p /data/openwrt/
 cp bin/mvebu64/armada-3720-community.dtb /data/openwrt/
 cp bin/mvebu64/openwrt-armada-ESPRESSObin-Image /data/openwrt/
 cp bin/mvebu64/openwrt-mvebu64-armada-espressobin-rootfs.tar.gz /data/openwrt/
-echo "Done building OpenWRT."
 popd
+echo "Done acquiring OpenWRT."
