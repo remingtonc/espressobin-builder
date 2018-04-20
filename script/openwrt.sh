@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 pushd /build/
 echo "Downloading OpenWRT sources..."
-git clone -b openwrt_17.10_release https://github.com/MarvellEmbeddedProcessors/openwrt-kernel.git
-sync
-git clone -b openwrt_17.10_release https://github.com/MarvellEmbeddedProcessors/openwrt-dd.git
+mkdir -p /build/cache/
+wget https://github.com/MarvellEmbeddedProcessors/openwrt-kernel/archive/openwrt_17.10_release.zip
+mkdir openwrt-kernel
+unzip openwrt_17.10_release.zip -d openwrt-kernel
+mv openwrt_17.10_release.zip /build/cache/
+wget https://github.com/MarvellEmbeddedProcessors/openwrt-dd/archive/openwrt_17.10_release.zip
+mkdir openwrt-dd
+unzip openwrt_17.10_release.zip -d openwrt-dd
+mv openwrt_17.10_release.zip /build/cache/
 sync
 cd openwrt-dd
 ./scripts/feeds update -a

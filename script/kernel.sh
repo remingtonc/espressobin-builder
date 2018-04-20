@@ -3,7 +3,10 @@ echo "Downloading kernel..."
 pushd /build/
 mkdir -p kernel/4.4.8
 cd kernel/4.4.8
-git clone -b linux-4.4.8-armada-17.02-espressobin https://github.com/MarvellEmbeddedProcessors/linux-marvell .
+mkdir -p /build/cache/
+wget https://github.com/MarvellEmbeddedProcessors/linux-marvell/archive/linux-4.4.8-armada-17.02-espressobin.zip
+unzip linux-4.4.8-armada-17.02-espressobin.zip
+mv linux-4.4.8-armada-17.02-espressobin.zip /build/cache/
 sync
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-

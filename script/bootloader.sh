@@ -3,7 +3,10 @@ pushd /build/
 echo "Downloading u-boot..."
 mkdir u-boot
 cd u-boot
-git clone -b u-boot-2017.03-armada-17.10 https://github.com/MarvellEmbeddedProcessors/u-boot-marvell .
+mkdir -p /build/cache/
+wget https://github.com/MarvellEmbeddedProcessors/u-boot-marvell/archive/u-boot-2017.03-armada-17.10.zip
+unzip u-boot-2017.03-armada-17.10.zip
+mv u-boot-2017.03-armada-17.10.zip /build/cache/
 sync
 echo "Building u-boot..."
 make mvebu_espressobin-88f3720_defconfig
@@ -18,15 +21,20 @@ cd ..
 echo "Downloading atf..."
 mkdir atf
 cd atf
-git clone -b atf-v1.3-armada-17.10 https://github.com/MarvellEmbeddedProcessors/atf-marvell.git .
+wget https://github.com/MarvellEmbeddedProcessors/atf-marvell/archive/atf-v1.3-armada-17.10.zip
+unzip atf-v1.3-armada-17.10.zip
+mv atf-v1.3-armada-17.10.zip /build/cache/
 sync
 cd ..
 mkdir a3700-utils
 cd a3700-utils
-git clone -b A3700_utils-armada-17.10 https://github.com/MarvellEmbeddedProcessors/A3700-utils-marvell.git .
+wget https://github.com/MarvellEmbeddedProcessors/A3700-utils-marvell/archive/A3700_utils-armada-17.10.zip
+unzip A3700_utils-armada-17.10.zip
+mv A3700_utils-armada-17.10.zip /build/cache/
 sync
 wget --content-disposition http://wiki.espressobin.net/tiki-download_file.php?fileId=152
 wget --content-disposition http://wiki.espressobin.net/tiki-download_file.php?fileId=151
+sync
 cd ..
 cd atf
 echo "Building atf..."
