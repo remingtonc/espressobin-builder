@@ -1,15 +1,32 @@
 #!/usr/bin/env bash
-pushd /build/
 echo "Downloading OpenWRT sources..."
+pushd /build/
 mkdir -p /build/cache/
-wget https://github.com/MarvellEmbeddedProcessors/openwrt-kernel/archive/openwrt_17.10_release.zip
+OPENWRT_KERNEL_FILENAME=openwrt_17.10_release-kernel.zip
+FQ_OPENWRT_KERNEL_FILENAME=$CACHE_DIR$OPENWRT_KERNEL_FILENAME
+if [ -f "${FQ_OPENWRT_KERNEL_FILENAME}" ]; then
+    cp $FQ_OPENWRT_KERNEL_FILENAME $OPENWRT_KERNEL_FILENAME
+else
+    wget https://github.com/MarvellEmbeddedProcessors/openwrt-kernel/archive/openwrt_17.10_release.zip
+    mv openwrt_17.10_release.zip $OPENWRT_KERNEL_FILENAME
+    cp $OPENWRT_KERNEL_FILENAME $FQ_OPENWRT_KERNEL_FILENAME
+fi
 mkdir openwrt-kernel
-unzip openwrt_17.10_release.zip -d openwrt-kernel
-mv openwrt_17.10_release.zip /build/cache/
-wget https://github.com/MarvellEmbeddedProcessors/openwrt-dd/archive/openwrt_17.10_release.zip
+unzip $OPENWRT_KERNEL_FILENAME -d openwrt-kernel
+rm $OPENWRT_KERNEL_FILENAME
+sync
+OPENWRT_DD_FILENAME=openwrt_17.10_release-dd.zip
+FQ_OPENWRT_DD_FILENAME=$CACHE_DIR$OPENWRT_DD_FILENAME
+if [ -f "${FQ_OPENWRT_DD_FILENAME}" ]; then
+    cp $FQ_OPENWRT_DD_FILENAME $OPENWRT_DD_FILENAME
+else
+    wget https://github.com/MarvellEmbeddedProcessors/openwrt-dd/archive/openwrt_17.10_release.zip
+    mv openwrt_17.10_release.zip $OPENWRT_DD_FILENAME
+    cp $OPENWRT_DD_FILENAME $FQ_OPENWRT_DD_FILENAME
+fi
 mkdir openwrt-dd
-unzip openwrt_17.10_release.zip -d openwrt-dd
-mv openwrt_17.10_release.zip /build/cache/
+unzip $OPENWRT_DD_FILENAME -d openwrt-dd
+rm $OPENWRT_DD_FILENAME
 sync
 cd openwrt-dd
 ./scripts/feeds update -a
