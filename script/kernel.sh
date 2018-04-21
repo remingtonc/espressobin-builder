@@ -15,7 +15,8 @@ else
     cp $KERNEL_FILENAME $FQ_KERNEL_FILENAME
 fi
 echo "Extracting kernel..."
-unzip -q $KERNEL_FILENAME
+# Replaced with 7z due to unzip duplicating files (???)
+7z e $KERNEL_FILENAME > /dev/null
 rm $KERNEL_FILENAME
 sync
 export ARCH=arm64
