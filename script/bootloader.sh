@@ -16,7 +16,6 @@ else
     cp $UBOOT_FILENAME $FQ_UBOOT_FILENAME
 fi
 echo "Extracting u-boot..."
-unzip -q $UBOOT_FILENAME
 tar --extract --gzip --file=$UBOOT_FILENAME --strip=1 --check-links
 rm $UBOOT_FILENAME
 sync
@@ -41,7 +40,9 @@ if [ -f "${FQ_ATF_FILENAME}" ]; then
     cp $FQ_ATF_FILENAME $ATF_FILENAME
 else
     echo "atf is not cached, downloading..."
-    wget --no-verbose https://github.com/MarvellEmbeddedProcessors/atf-marvell/archive/$ATF_FILENAME
+    git clone -b atf-v1.3-armada-17.10 https://github.com/MarvellEmbeddedProcessors/atf-marvell.git
+    tar czf $ATF_FILENAME atf-marvell
+    rm -rf atf-marvell
     echo "Copying atf to cache..."
     cp $ATF_FILENAME $FQ_ATF_FILENAME
 fi
@@ -60,12 +61,13 @@ if [ -f "${FQ_UTILS_FILENAME}" ]; then
     cp $FQ_UTILS_FILENAME $UTILS_FILENAME
 else
     echo "utils is not cached, downloading..."
-    wget --no-verbose https://github.com/MarvellEmbeddedProcessors/A3700-utils-marvell/archive/$UTILS_FILENAME
+    git clone -b A3700_utils-armada-17.10 https://github.com/MarvellEmbeddedProcessors/A3700-utils-marvell.git
+    tar czf $UTILS_FILENAME A3700-utils-marvell
+    rm -rf A3700-utils-marvell
     echo "Copying utils to cache..."
     cp $UTILS_FILENAME $FQ_UTILS_FILENAME
 fi
 echo "Extracting utils..."
-unzip -q $UTILS_FILENAME
 tar --extract --gzip --file=$UTILS_FILENAME --strip=1 --check-links
 rm $UTILS_FILENAME
 sync
