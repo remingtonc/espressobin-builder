@@ -13,7 +13,7 @@ else
     echo "u-boot is not cached, downloading..."
     wget --no-verbose https://github.com/MarvellEmbeddedProcessors/u-boot-marvell/archive/$UBOOT_FILENAME
     echo "Copying u-boot to cache..."
-    cp $UBOOT_FILENAME $FQ_UBOOT_FILENAME
+    cp -v $UBOOT_FILENAME $FQ_UBOOT_FILENAME
 fi
 echo "Extracting u-boot..."
 tar --extract --gzip --file=$UBOOT_FILENAME --strip=1 --check-links
@@ -26,7 +26,7 @@ make DEVICE_TREE=armada-3720-espressobin
 sync
 echo "Exposing desired files..."
 mkdir -p /data/u-boot
-cp u-boot.bin /data/u-boot/
+cp -v u-boot.bin /data/u-boot/
 export BL33=/build/u-boot/u-boot.bin
 echo "Done building u-boot."
 cd ..
@@ -45,7 +45,7 @@ else
     tar czf $ATF_FILENAME atf-marvell
     rm -rf atf-marvell
     echo "Copying atf to cache..."
-    cp $ATF_FILENAME $FQ_ATF_FILENAME
+    cp -v $ATF_FILENAME $FQ_ATF_FILENAME
 fi
 echo "Extracting atf..."
 tar --extract --gzip --file=$ATF_FILENAME --strip=1 --check-links
@@ -67,7 +67,7 @@ else
     tar czf $UTILS_FILENAME A3700-utils-marvell
     rm -rf A3700-utils-marvell
     echo "Copying utils to cache..."
-    cp $UTILS_FILENAME $FQ_UTILS_FILENAME
+    cp -v $UTILS_FILENAME $FQ_UTILS_FILENAME
 fi
 echo "Extracting utils..."
 tar --extract --gzip --file=$UTILS_FILENAME --strip=1 --check-links
@@ -87,7 +87,7 @@ make DEBUG=1 USE_COHERENT_MEM=0 LOG_LEVEL=20 SECURE=0 CLOCKSPRESET=CPU_1000_DDR_
 sync
 echo "Exposing desired files..."
 mkdir -p /data/atf
-cp build/a3700/debug/flash-image.bin /data/atf/
-cp -r build/a3700/debug/uart-images /data/atf/
+cp -v build/a3700/debug/flash-image.bin /data/atf/
+cp -v -r build/a3700/debug/uart-images /data/atf/
 echo "Done building atf."
 popd

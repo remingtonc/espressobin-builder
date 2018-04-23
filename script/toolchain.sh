@@ -12,7 +12,7 @@ else
     echo "Toolchain is not cached, downloading..."
     wget --no-verbose https://releases.linaro.org/components/toolchain/binaries/5.2-2015.11-2/aarch64-linux-gnu/$TOOLCHAIN_FILENAME
     echo "Copying toolchain to cache..."
-    cp $TOOLCHAIN_FILENAME $FQ_TOOLCHAIN_FILENAME
+    cp -v $TOOLCHAIN_FILENAME $FQ_TOOLCHAIN_FILENAME
 fi
 echo "Extracting toolchain..."
 tar --extract --xz --file=$TOOLCHAIN_FILENAME  --strip=1 --check-links

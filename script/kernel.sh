@@ -12,7 +12,7 @@ else
     echo "Kernel is not cached, downloading..."
     wget --no-verbose https://github.com/MarvellEmbeddedProcessors/linux-marvell/archive/$KERNEL_FILENAME
     echo "Copying kernel to cache..."
-    cp $KERNEL_FILENAME $FQ_KERNEL_FILENAME
+    cp -v $KERNEL_FILENAME $FQ_KERNEL_FILENAME
 fi
 echo "Extracting kernel..."
 tar --extract --gzip --file $KERNEL_FILENAME --strip=1 --check-links
@@ -27,7 +27,7 @@ make -j$(($(nproc)+1))
 sync
 echo "Exposing desired files..."
 mkdir -p /data/kernel
-cp arch/arm64/boot/Image /data/kernel/
-cp arch/arm64/boot/dts/marvell/armada-3720-community.dtb /data/kernel/
+cp -v arch/arm64/boot/Image /data/kernel/
+cp -v arch/arm64/boot/dts/marvell/armada-3720-community.dtb /data/kernel/
 popd
 echo "Done acquiring kernel."
