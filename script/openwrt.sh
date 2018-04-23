@@ -2,6 +2,7 @@
 echo "Acquiring OpenWRT..."
 pushd /build/
 mkdir -p /build/cache/
+OPENWRT_ARCHIVE_FILENAME=openwrt_17.10_release.tar.gz
 OPENWRT_KERNEL_FILENAME=openwrt_17.10_release-kernel.tar.gz
 FQ_OPENWRT_KERNEL_FILENAME=$CACHE_DIR$OPENWRT_KERNEL_FILENAME
 if [ -f "${FQ_OPENWRT_KERNEL_FILENAME}" ]; then
@@ -9,8 +10,8 @@ if [ -f "${FQ_OPENWRT_KERNEL_FILENAME}" ]; then
     cp $FQ_OPENWRT_KERNEL_FILENAME $OPENWRT_KERNEL_FILENAME
 else
     echo "OpenWRT kernel is not cached, downloading..."
-    wget --no-verbose https://github.com/MarvellEmbeddedProcessors/openwrt-kernel/archive/openwrt_17.10_release.tar.gz
-    mv openwrt_17.10_release.zip $OPENWRT_KERNEL_FILENAME
+    wget --no-verbose https://github.com/MarvellEmbeddedProcessors/openwrt-kernel/archive/$OPENWRT_ARCHIVE_FILENAME
+    mv $OPENWRT_ARCHIVE_FILENAME $OPENWRT_KERNEL_FILENAME
     echo "Copying OpenWRT kernel to cache..."
     cp $OPENWRT_KERNEL_FILENAME $FQ_OPENWRT_KERNEL_FILENAME
 fi
@@ -26,8 +27,8 @@ if [ -f "${FQ_OPENWRT_DD_FILENAME}" ]; then
     cp $FQ_OPENWRT_DD_FILENAME $OPENWRT_DD_FILENAME
 else
     echo "OpenWRT DD is not cached, downloading..."
-    wget --no-verbose https://github.com/MarvellEmbeddedProcessors/openwrt-dd/archive/openwrt_17.10_release.tar.gz
-    mv openwrt_17.10_release.zip $OPENWRT_DD_FILENAME
+    wget --no-verbose https://github.com/MarvellEmbeddedProcessors/openwrt-dd/archive/$OPENWRT_ARCHIVE_FILENAME
+    mv $OPENWRT_ARCHIVE_FILENAME $OPENWRT_DD_FILENAME
     echo "Copying OpenWRT DD to cache..."
     cp $OPENWRT_DD_FILENAME $FQ_OPENWRT_DD_FILENAME
 fi
