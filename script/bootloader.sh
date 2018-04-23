@@ -4,7 +4,7 @@ pushd /build/
 mkdir u-boot
 cd u-boot
 mkdir -p /build/cache/
-UBOOT_FILENAME=u-boot-2017.03-armada-17.10.zip
+UBOOT_FILENAME=u-boot-2017.03-armada-17.10.tar.gz
 FQ_UBOOT_FILENAME=$CACHE_DIR$UBOOT_FILENAME
 if [ -f "${FQ_UBOOT_FILENAME}" ]; then
     echo "Using cached u-boot download."
@@ -17,6 +17,7 @@ else
 fi
 echo "Extracting u-boot..."
 unzip -q $UBOOT_FILENAME
+tar --extract --gzip --file=$UBOOT_FILENAME
 rm $UBOOT_FILENAME
 sync
 echo "Building u-boot..."
@@ -33,7 +34,7 @@ cd ..
 echo "Acquiring atf..."
 mkdir atf
 cd atf
-ATF_FILENAME=atf-v1.3-armada-17.10.zip
+ATF_FILENAME=atf-v1.3-armada-17.10.tar.gz
 FQ_ATF_FILENAME=$CACHE_DIR$ATF_FILENAME
 if [ -f "${FQ_ATF_FILENAME}" ]; then
     echo "Using cached atf download..."
@@ -45,14 +46,14 @@ else
     cp $ATF_FILENAME $FQ_ATF_FILENAME
 fi
 echo "Extracting atf..."
-unzip -q $ATF_FILENAME
+tar --extract --gzip --file=$ATF_FILENAME
 rm $ATF_FILENAME
 sync
 cd ..
 echo "Acquiring utils..."
 mkdir a3700-utils
 cd a3700-utils
-UTILS_FILENAME=A3700_utils-armada-17.10.zip
+UTILS_FILENAME=A3700_utils-armada-17.10.tar.gz
 FQ_UTILS_FILENAME=$CACHE_DIR$UTILS_FILENAME
 if [ -f "${FQ_UTILS_FILENAME}" ]; then
     echo "Using cached utils download."
@@ -65,6 +66,7 @@ else
 fi
 echo "Extracting utils..."
 unzip -q $UTILS_FILENAME
+tar --extract --gzip --file=$UTILS_FILENAME
 rm $UTILS_FILENAME
 sync
 echo "Acquiring patches..."

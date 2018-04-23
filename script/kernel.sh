@@ -3,7 +3,7 @@ echo "Acquiring kernel..."
 pushd /build/
 mkdir -p kernel/4.4.8
 cd kernel/4.4.8
-KERNEL_FILENAME=linux-4.4.8-armada-17.02-espressobin.zip
+KERNEL_FILENAME=linux-4.4.8-armada-17.02-espressobin.tar.gz
 FQ_KERNEL_FILENAME=$CACHE_DIR$KERNEL_FILENAME
 if [ -f "${FQ_KERNEL_FILENAME}" ]; then
     echo "Using cached kernel download."
@@ -15,8 +15,7 @@ else
     cp $KERNEL_FILENAME $FQ_KERNEL_FILENAME
 fi
 echo "Extracting kernel..."
-# Replaced with 7z due to unzip duplicating files (???)
-7z e $KERNEL_FILENAME > /dev/null
+tar --extract --gzip --file=$KERNEL_FILENAME
 rm $KERNEL_FILENAME
 sync
 export ARCH=arm64
