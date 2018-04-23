@@ -13,7 +13,7 @@ else
     wget --no-verbose https://github.com/MarvellEmbeddedProcessors/openwrt-kernel/archive/$OPENWRT_ARCHIVE_FILENAME
     mv $OPENWRT_ARCHIVE_FILENAME $OPENWRT_KERNEL_FILENAME
     echo "Copying OpenWRT kernel to cache..."
-    cp $OPENWRT_KERNEL_FILENAME $FQ_OPENWRT_KERNEL_FILENAME
+    cp -v $OPENWRT_KERNEL_FILENAME $FQ_OPENWRT_KERNEL_FILENAME
 fi
 mkdir openwrt-kernel
 echo "Extracting OpenWRT kernel..."
@@ -30,7 +30,7 @@ else
     wget --no-verbose https://github.com/MarvellEmbeddedProcessors/openwrt-dd/archive/$OPENWRT_ARCHIVE_FILENAME
     mv $OPENWRT_ARCHIVE_FILENAME $OPENWRT_DD_FILENAME
     echo "Copying OpenWRT DD to cache..."
-    cp $OPENWRT_DD_FILENAME $FQ_OPENWRT_DD_FILENAME
+    cp -v $OPENWRT_DD_FILENAME $FQ_OPENWRT_DD_FILENAME
 fi
 mkdir openwrt-dd
 echo "Extracting OpenWRT DD..."
@@ -57,13 +57,14 @@ cp /config/openwrt.config .config
 # [x] Advanced configuration options (for developers)  --->
 #    (/opt/kernel/openwrt-kernel) Use external kernel tree
 echo "Building OpenWRT..."
-sync
+# Force/enable build as root
+export FORCE_UNSAFE_CONFIGURE=1
 make -j$(($(nproc)+1))
 sync
 echo "Exposing desired files..."
 mkdir -p /data/openwrt/
-cp bin/mvebu64/armada-3720-community.dtb /data/openwrt/
-cp bin/mvebu64/openwrt-armada-ESPRESSObin-Image /data/openwrt/
-cp bin/mvebu64/openwrt-mvebu64-armada-espressobin-rootfs.tar.gz /data/openwrt/
+cp -v bin/mvebu64/armada-3720-community.dtb /data/openwrt/
+cp -v bin/mvebu64/openwrt-armada-ESPRESSObin-Image /data/openwrt/
+cp -v bin/mvebu64/openwrt-mvebu64-armada-espressobin-rootfs.tar.gz /data/openwrt/
 popd
 echo "Done acquiring OpenWRT."
