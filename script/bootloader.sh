@@ -17,7 +17,7 @@ else
 fi
 echo "Extracting u-boot..."
 unzip -q $UBOOT_FILENAME
-tar --extract --gzip --file=$UBOOT_FILENAME
+tar --extract --gzip --file=$UBOOT_FILENAME --strip=1 --check-links
 rm $UBOOT_FILENAME
 sync
 echo "Building u-boot..."
@@ -46,7 +46,7 @@ else
     cp $ATF_FILENAME $FQ_ATF_FILENAME
 fi
 echo "Extracting atf..."
-tar --extract --gzip --file=$ATF_FILENAME
+tar --extract --gzip --file=$ATF_FILENAME --strip=1 --check-links
 rm $ATF_FILENAME
 sync
 cd ..
@@ -66,7 +66,7 @@ else
 fi
 echo "Extracting utils..."
 unzip -q $UTILS_FILENAME
-tar --extract --gzip --file=$UTILS_FILENAME
+tar --extract --gzip --file=$UTILS_FILENAME --strip=1 --check-links
 rm $UTILS_FILENAME
 sync
 echo "Acquiring patches..."

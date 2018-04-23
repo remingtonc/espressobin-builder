@@ -16,7 +16,7 @@ else
 fi
 mkdir openwrt-kernel
 echo "Extracting OpenWRT kernel..."
-tar --extract --gzip --file=$OPENWRT_KERNEL_FILENAME --directory=openwrt-kernel
+tar --extract --gzip --file=$OPENWRT_KERNEL_FILENAME --directory=openwrt-kernel --strip=1 --check-links
 rm $OPENWRT_KERNEL_FILENAME
 sync
 OPENWRT_DD_FILENAME=openwrt_17.10_release-dd.tar.gz
@@ -33,7 +33,7 @@ else
 fi
 mkdir openwrt-dd
 echo "Extracting OpenWRT DD..."
-tar --extract --gzip --file=$OPENWRT_DD_FILENAME --directory=openwrt-dd
+tar --extract --gzip --file=$OPENWRT_DD_FILENAME --directory=openwrt-dd --strip=1 --check-links
 rm $OPENWRT_DD_FILENAME
 sync
 cd openwrt-dd

@@ -15,7 +15,7 @@ else
     cp $KERNEL_FILENAME $FQ_KERNEL_FILENAME
 fi
 echo "Extracting kernel..."
-tar --extract --gzip --file=$KERNEL_FILENAME
+tar --extract --gzip --file $KERNEL_FILENAME --strip=1 --check-links
 rm $KERNEL_FILENAME
 sync
 export ARCH=arm64

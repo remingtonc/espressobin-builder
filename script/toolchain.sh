@@ -14,10 +14,10 @@ else
     cp $TOOLCHAIN_FILENAME $FQ_TOOLCHAIN_FILENAME
 fi
 echo "Extracting toolchain..."
-tar --extract --xz --file=$TOOLCHAIN_FILENAME
+tar --extract --xz --file=$TOOLCHAIN_FILENAME  --strip=1 --check-links
 rm $TOOLCHAIN_FILENAME
 sync
 echo "Setting toolchain build path..."
-export PATH=$PATH:/build/toolchain/gcc-linaro-5.2-2015.11-2-x86_64_aarch64-linux-gnu/bin
+export PATH=$PATH:/build/toolchain/bin
 popd
 echo "Done acquiring toolchain."
