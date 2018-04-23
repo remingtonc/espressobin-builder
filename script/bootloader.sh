@@ -81,6 +81,8 @@ sync
 cd ..
 cd atf
 echo "Building atf..."
+# TODO: Is a nonstandard toolchain used? toolchain?
+# export CROSS_CM3=/build/toolchain/bin/arm-linux-gnueabi
 make DEBUG=1 USE_COHERENT_MEM=0 LOG_LEVEL=20 SECURE=0 CLOCKSPRESET=CPU_1000_DDR_800 DDR_TOPOLOGY=2 BOOTDEV=SPINOR PARTNUM=0 WTP=../a3700-utils/ PLAT=a3700 all fip
 sync
 echo "Exposing desired files..."
