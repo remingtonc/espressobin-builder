@@ -2,6 +2,7 @@
 echo "Acquiring toolchain..."
 pushd /build/
 mkdir toolchain
+cd toolchain
 TOOLCHAIN_FILENAME=gcc-linaro-5.2-2015.11-2-x86_64_aarch64-linux-gnu.tar.xz
 FQ_TOOLCHAIN_FILENAME=$CACHE_DIR$TOOLCHAIN_FILENAME
 if [ -f "${FQ_TOOLCHAIN_FILENAME}" ]; then
