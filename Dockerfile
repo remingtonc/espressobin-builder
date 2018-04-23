@@ -8,9 +8,7 @@ RUN apt-get -qq install sed make binutils build-essential gcc g++ bash patch gzi
 # OpenWRT
 RUN apt-get -qq install subversion
 # Missing
-RUN apt-get -qq install bc
-# Mitigate kernel unzip issue (???)
-RUN apt-get -qq install p7zip-full
+RUN apt-get -qq install bc device-tree-compiler
 # Reset back to interactive usage
 ENV DEBIAN_FRONTEND teletype
 COPY script/ /script
