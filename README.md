@@ -7,6 +7,7 @@ This is not verified to correctly build compatible images. Use at your own risk.
 ### Current Limitations
 * **Only builds for 1GB ESPRESSObin board.**
 * **Only builds Bootloader and OpenWRT 17.10.**
+* **Does not work on MacOS.** Due to various issues with Docker on MacOS such as case-insensitive filesystems and some out of tree build script issues.
 
 ## Usage
 This script will acquire and build the Bootloader, Kernel, and OpenWRT images. `bin/` will contain the resulting and desired files for flashing.
