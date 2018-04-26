@@ -43,7 +43,7 @@ echo "Running OpenWRT DD scripts..."
 ./scripts/feeds install -a
 echo "Using preconfigured .config..."
 cp /config/openwrt.config .config 
-# make menuconfig
+make menuconfig
 # Target System --->
 #   Marvell 64b Boards
 # Target Profile --->
@@ -55,7 +55,7 @@ cp /config/openwrt.config .config
 #    * Root filesystem images *
 #    [x] ext4  --->
 # [x] Advanced configuration options (for developers)  --->
-#    (/opt/kernel/openwrt-kernel) Use external kernel tree
+#    (/build/openwrt-kernel) Use external kernel tree
 echo "Building OpenWRT..."
 # Force/enable build as root
 export FORCE_UNSAFE_CONFIGURE=1
