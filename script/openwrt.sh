@@ -59,6 +59,11 @@ make menuconfig
 echo "Building OpenWRT..."
 # Force/enable build as root
 export FORCE_UNSAFE_CONFIGURE=1
+# Fix yaffs2 compilation
+# Thank you https://forum.openwrt.org/t/lede-compile-fail-mkyaffs-problem/203/2
+# Due to downloading tar instead of from git
+date +%s > version.date
+#make -j1 V=s
 make -j$(($(nproc)+1))
 sync
 echo "Exposing desired files..."
