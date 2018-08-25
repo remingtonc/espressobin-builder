@@ -4,10 +4,12 @@ Dockerized builder for ESPRESSObin board images. Pulled from [ESPRESSObin wiki d
 ## WARNING
 This is not verified to correctly build compatible images. Use at your own risk. Documentation does not appear completely reliable. Pre-built images are likely safer - however this is useful for understanding the build process, exposing weakenesses in the documentation, and for those who desire to build from source.
 
+* **SSH host key checks are disabled during the OpenWRT build!**  
+This could result in a MitM or other security implications.
+
 ### Current Limitations
 * **Only builds for 1GB ESPRESSObin board.**
 * **Only builds Bootloader and OpenWRT 17.10.**
-* **Does not work on MacOS.** Due to various issues with Docker on MacOS such as case-insensitive filesystems and some out of tree build script issues.
 
 ## Usage
 This script will acquire and build the Bootloader, Kernel, and OpenWRT images. `bin/` will contain the resulting and desired files for flashing.
