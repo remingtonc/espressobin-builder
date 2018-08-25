@@ -42,8 +42,8 @@ echo "Running OpenWRT DD scripts..."
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 echo "Using preconfigured .config..."
-cp /config/openwrt.config .config 
-make menuconfig
+cp /config/openwrt.config .config
+#echo -e '\a'; make menuconfig
 # Target System --->
 #   Marvell 64b Boards
 # Target Profile --->

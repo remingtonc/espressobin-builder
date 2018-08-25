@@ -4,3 +4,4 @@ CACHE_DIR=/cache/
 . kernel.sh
 . bootloader.sh
 . openwrt.sh
+echo -e '\a'
