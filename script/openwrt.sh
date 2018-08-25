@@ -43,7 +43,7 @@ echo "Running OpenWRT DD scripts..."
 ./scripts/feeds install -a
 echo "Using preconfigured .config..."
 cp /config/openwrt.config .config 
-# make menuconfig
+make menuconfig
 # Target System --->
 #   Marvell 64b Boards
 # Target Profile --->
@@ -55,10 +55,22 @@ cp /config/openwrt.config .config
 #    * Root filesystem images *
 #    [x] ext4  --->
 # [x] Advanced configuration options (for developers)  --->
-#    (/opt/kernel/openwrt-kernel) Use external kernel tree
+#    (/build/openwrt-kernel) Use external kernel tree
 echo "Building OpenWRT..."
 # Force/enable build as root
 export FORCE_UNSAFE_CONFIGURE=1
+# Fix yaffs2 compilation
+# Thank you https://forum.openwrt.org/t/lede-compile-fail-mkyaffs-problem/203/2
+# Due to downloading tar instead of from git
+date +%s > version.date
+# Fix git:// download errors
+# This is tremendously insecure but host keys need to work for git:// URLs
+# e.g. git clone git://git.infradead.org/mtd-utils.git from openwrt make
+mkdir -p ~/.ssh/
+echo 'StrictHostKeyChecking no' >> ~/.ssh/config
+# Debug
+#make -j1 V=s
+# Prod
 make -j$(($(nproc)+1))
 sync
 echo "Exposing desired files..."
