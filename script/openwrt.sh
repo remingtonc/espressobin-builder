@@ -63,7 +63,14 @@ export FORCE_UNSAFE_CONFIGURE=1
 # Thank you https://forum.openwrt.org/t/lede-compile-fail-mkyaffs-problem/203/2
 # Due to downloading tar instead of from git
 date +%s > version.date
+# Fix git:// download errors
+# This is tremendously insecure but host keys need to work for git:// URLs
+# e.g. git clone git://git.infradead.org/mtd-utils.git from openwrt make
+mkdir -p ~/.ssh/
+echo 'StrictHostKeyChecking no' >> ~/.ssh/config
+# Debug
 #make -j1 V=s
+# Prod
 make -j$(($(nproc)+1))
 sync
 echo "Exposing desired files..."
