@@ -68,9 +68,10 @@ date +%s > version.date
 # e.g. git clone git://git.infradead.org/mtd-utils.git from openwrt make
 mkdir -p ~/.ssh/
 echo 'StrictHostKeyChecking no' >> ~/.ssh/config
-# Debug
-#make -j1 V=s
-# Prod
+#DEBUG make -j1 V=s
+# Multithread compilation
+# https://wiki.openwrt.org/doc/howto/build#download_sources_and_multi_core_compile
+make download
 make -j$(($(nproc)+1))
 sync
 echo "Exposing desired files..."
