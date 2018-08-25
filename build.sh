@@ -21,25 +21,44 @@ function run_build {
 
 function clean_build {
     case "$(uname -s)" in
-        Linux*)     rm -rf build/* && break;;
-        Darwin*)    rm espressobin_build.dmg* && break;;
-        * ) printf "Uncertain how to clean build!\n" && break;;
+        Linux*)
+            rm -rf build/*
+            ;;
+        Darwin*)
+            rm espressobin_build.dmg*
+            ;;
+        * )
+            printf "Uncertain how to clean build!\n"
+            ;;
     esac
 }
 
 while true; do
     read -p "Reset build folders? [Y/N]: " yn
     case $yn in
-        [Yy]* ) clean_build && break;;
-        [Nn]* ) break;;
-        * ) printf "Please answer [Yy]es or [Nn]o.\n" && break;;
+        [Yy]* )
+            clean_build
+            break
+            ;;
+        [Nn]* )
+            break
+            ;;
+        * )
+            printf "Please answer [Yy]es or [Nn]o.\n"
+            ;;
     esac
 done
 
 docker build -t espressobin/build .
 
 case "$(uname -s)" in
-    Linux*)     run_build && break;;
-    Darwin*)    run_darwin && break;;
-    * ) printf "OS currently unsupported!\n" && break;;
+    Linux*)
+        run_build
+        ;;
+    Darwin*)
+        run_darwin
+        ;;
+    * )
+        printf "OS currently unsupported!\n"
+        ;;
 esac
