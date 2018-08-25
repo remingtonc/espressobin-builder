@@ -4,8 +4,8 @@ function run_darwin {
     if [[ ! -f espressobin_build.dmg || ! -f espressobin_build.dmg.sparseimage ]]; then
         hdiutil create -type SPARSE -fs 'Case-sensitive Journaled HFS+' -size 40g ./espressobin_build.dmg
     fi
-    hdiutil attach ./espressobin_build.dmg -mountpoint ./build/ \
-    || hdiutil attach ./espressobin_build.dmg.sparseimage -mountpoint ./build/
+    hdiutil attach ./espressobin_build.dmg.sparseimage -mountpoint ./build/ \
+    || hdiutil attach ./espressobin_build.dmg -mountpoint ./build/
     run_build
     hdiutil detach ./build/
 }
@@ -20,7 +20,7 @@ function run_build {
 }
 
 function clean_build {
-    case "${UNAME}" in
+    case "$(uname -s)" in
         Linux*)     rm -rf build/* && break;;
         Darwin*)    rm espressobin_build.dmg* && break;;
         * ) printf "Uncertain how to clean build!\n" && break;;
@@ -38,8 +38,7 @@ done
 
 docker build -t espressobin/build .
 
-UNAME="$(uname -s)"
-case "${UNAME}" in
+case "$(uname -s)" in
     Linux*)     run_build && break;;
     Darwin*)    run_darwin && break;;
     * ) printf "OS currently unsupported!\n" && break;;
