@@ -30,7 +30,7 @@ function clean_build {
 while true; do
     read -p "Reset build folders? [Y/N]: " yn
     case $yn in
-        [Yy]* ) clean_build;;
+        [Yy]* ) clean_build && break;;
         [Nn]* ) break;;
         * ) printf "Please answer [Yy]es or [Nn]o.\n" && break;;
     esac
