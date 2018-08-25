@@ -20,9 +20,9 @@ tar --extract --gzip --file=$UBOOT_FILENAME --strip=1 --check-links
 rm $UBOOT_FILENAME
 sync
 echo "Building u-boot..."
-make mvebu_espressobin-88f3720_defconfig
+make -j$(($(nproc)+1)) mvebu_espressobin-88f3720_defconfig
 sync
-make DEVICE_TREE=armada-3720-espressobin
+make -j$(($(nproc)+1)) DEVICE_TREE=armada-3720-espressobin
 sync
 echo "Exposing desired files..."
 mkdir -p /data/u-boot
@@ -83,7 +83,7 @@ cd atf
 echo "Building atf..."
 # TODO: Is a nonstandard toolchain used? toolchain?
 # export CROSS_CM3=/build/toolchain/bin/arm-linux-gnueabi
-make DEBUG=1 USE_COHERENT_MEM=0 LOG_LEVEL=20 SECURE=0 CLOCKSPRESET=CPU_1000_DDR_800 DDR_TOPOLOGY=2 BOOTDEV=SPINOR PARTNUM=0 WTP=../a3700-utils/ PLAT=a3700 all fip
+make -j$(($(nproc)+1)) DEBUG=1 USE_COHERENT_MEM=0 LOG_LEVEL=20 SECURE=0 CLOCKSPRESET=CPU_1000_DDR_800 DDR_TOPOLOGY=2 BOOTDEV=SPINOR PARTNUM=0 WTP=../a3700-utils/ PLAT=a3700 all fip
 sync
 echo "Exposing desired files..."
 mkdir -p /data/atf

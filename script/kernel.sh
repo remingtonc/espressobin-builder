@@ -21,7 +21,7 @@ sync
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
 echo "Building kernel..."
-make mvebu_v8_lsp_defconfig
+make -j$(($(nproc)+1)) mvebu_v8_lsp_defconfig
 sync
 make -j$(($(nproc)+1))
 sync
